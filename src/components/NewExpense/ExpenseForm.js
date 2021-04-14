@@ -39,14 +39,32 @@ const ExpenseForm = () => {
     // });
   };
 
-  console.table({ enteredTitle, enteredAmount, enteredDate });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    console.log(expenseData);
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
+  };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className='new-expense__controls'>
         <div className='new-expense__control'>
           <label htmlFor='title'>Title</label>
-          <input type='text' onChange={titleHandleChange} id='title' />
+          <input
+            type='text'
+            onChange={titleHandleChange}
+            id='title'
+            value={enteredTitle}
+          />
         </div>
         <div className='new-expense__control'>
           <label htmlFor='amount'>Amount</label>
@@ -54,8 +72,8 @@ const ExpenseForm = () => {
             type='number'
             id='amount'
             onChange={amountHandleChange}
-            min='0.1'
-            step='0,01'
+            min='0.01'
+            value={enteredAmount}
           />
         </div>
         <div className='new-expense__control'>
@@ -66,6 +84,7 @@ const ExpenseForm = () => {
             onChange={dateHandleChange}
             min='2019-01-01'
             max='2022-12-31'
+            value={enteredDate}
           />
         </div>
       </div>
